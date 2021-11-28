@@ -19,8 +19,7 @@ module.exports = {
         'To check out a category, use command ${config.prefix}help [category]',
         `[Invite Me Now](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands)`,
         `[My Support Server](https://discord.gg/m5xUeZj7Xb)`,
-        `[My Other Server](https://discord.gg/aFCQSyzNU8)`,
-        `[Invite my Beta counterpart](https://discord.com/api/webhooks/914650744454512653/liFSnR0lHKNK14JsRP95WdV0SlPLjX8Fsz6BelCYTyxXjomgPDelUkaMYhBPS93V0lFT)`
+        `[My Other Server](https://discord.gg/aFCQSyzNU8)`
       ];
 
       const emo = {
