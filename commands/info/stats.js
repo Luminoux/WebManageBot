@@ -15,9 +15,9 @@ module.exports = {
 		const hours = (d.hours() == 1) ? `${d.hours()} hour` : `${d.hours()} hours`;
 		const minutes = (d.minutes() == 1) ? `${d.minutes()} minute` : `${d.minutes()} minutes`;
 		const mainStats = stripIndent`
-	  Owner      :: VenomousSteam81
-	  Host       :: Railway + Github
-	  Prefix     :: ${config.prefix}
+	  	  Owner      :: VenomousSteam81
+	  	  Host       :: Railway + Github
+	  	  Prefix     :: ${config.prefix}
 				`;
 		const clientStats = stripIndent`
           Servers    :: ${message.client.guilds.cache.size}
@@ -35,7 +35,8 @@ module.exports = {
           RAM Usage  :: ${ramUsage} MB
         `;
 		const extraStats = stripIndent`
-	  Tokens       :: 6 token resets
+		  Tokens     :: 6 token resets
+		  Type       :: Stable
 	`;
 
 		const embed = new MessageEmbed()
