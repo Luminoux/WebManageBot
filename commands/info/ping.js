@@ -6,8 +6,8 @@ module.exports = {
     run: async (client, message) => {
 
         const pings = {
-            'Reply': `${Date.now() - message.createdTimestamp}ms`,
-            'Websocket': `${Math.round(client.ws.ping)}ms`
+            Reply: `${Date.now() - message.createdTimestamp}ms`,
+            Websocket: `${Math.round(client.ws.ping)}ms`
         }
     
         const ping = new MessageEmbed()
