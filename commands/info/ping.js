@@ -10,7 +10,7 @@ module.exports = {
             'Websocket': `${Math.round(client.ws.ping)}ms`
         }
     
-        const ping = new MessageEmbed
+        const ping = new MessageEmbed()
             .setTitle('**__PONG! My latencies:__**')
             .setFields(pings)
             .setTimestamp()
