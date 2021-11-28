@@ -55,7 +55,7 @@ module.exports = {
 
       const embed = new MessageEmbed()
         .setTitle(`\`\`Help\`\``)
-        .setDescription(i)
+        .setDescription(`${i}`)
         .addFields(categories)
         .setFooter(
           `Requested by ${message.author.tag}`,
