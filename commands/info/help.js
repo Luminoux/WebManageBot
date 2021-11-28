@@ -11,7 +11,7 @@ module.exports = {
     if (!args[0]) {
       let categories = [];
 
-      let ignored = ["util", "sql"];
+      let ignored = ["util", "database", "db"];
 
       const emo = {
         info: "❓",
