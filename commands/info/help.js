@@ -13,6 +13,16 @@ module.exports = {
 
       let ignored = ["util", "database", "db"];
 
+      let i = [
+        '`\`\`My Prefix is : ${config.prefix} \`\`',
+        '\`\`\` Presented By Luminoux Studios \`\`\`',
+        'To check out a category, use command ${config.prefix}help [category]',
+        `[Invite Me Now](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands)`,
+        `[My Support Server](https://discord.gg/m5xUeZj7Xb)`,
+        `[My Other Server](https://discord.gg/aFCQSyzNU8)`,
+        `[Invite my Beta counterpart](https://discord.com/api/webhooks/914650744454512653/liFSnR0lHKNK14JsRP95WdV0SlPLjX8Fsz6BelCYTyxXjomgPDelUkaMYhBPS93V0lFT)`
+      ];
+
       const emo = {
         info: "❓",
 				fun: "🎮",
@@ -44,8 +54,8 @@ module.exports = {
       });
 
       const embed = new MessageEmbed()
-        .setTitle(`\`\`Help Menu\`\``)
-        .setDescription(`\`\`My Prefix is : ${config.prefix} \`\`\n \`\`\` Presented By Luminoux Studios \`\`\` \n To check out a category, use command ${config.prefix}help [category] \n\n [Invite Me Now](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands) \n [My Support Server](https://discord.gg/m5xUeZj7Xb) \n [My Other Server](https://discord.gg/aFCQSyzNU8)`)
+        .setTitle(`\`\`Help\`\``)
+        .setDescription(i)
         .addFields(categories)
         .setFooter(
           `Requested by ${message.author.tag}`,
