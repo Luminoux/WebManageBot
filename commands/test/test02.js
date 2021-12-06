@@ -77,8 +77,27 @@ module.exports = {
             categories.push(cats);
           });
 
-        const msg = await message.reply({
+        const embed = new MessageEmbed()
+          .setTitle(`\`\`Help Menu\`\``)
+          .setDescription(`\`\`My Prefix is : ${config.prefix} \`\`\n \`\`\` Presented By Luminoux Studios \`\`\` \n To check out a category, use command ${config.prefix}help [category] \n\n [Invite Me Now](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands) \n [My Support Server](https://discord.gg/m5xUeZj7Xb) \n [My Other Server](https://discord.gg/aFCQSyzNU8)`)
+          .addFields(categories)
+          .setFooter(
+            `Requested by ${message.author.tag}`,
+            message.author.displayAvatarURL({
+              dynamic: true,
+            })
+          )
+          .setTimestamp()
+          .setThumbnail(
+            client.user.displayAvatarURL({
+              dynamic: true,
+            })
+          )
+          .setColor(color);
+  
+        const msg = await message.channel.send({
             content: help,
+            embeds: [embed],
             components: hb,
         })
     }
