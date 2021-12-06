@@ -55,7 +55,7 @@ module.exports = {
 		}
 		setInterval(() => {
 			if(gameEnded == false) return update();
-		}, 1000);
+		}, 2000);
 
 		const filter = button => {
 			return button.user.id === message.author.id;
