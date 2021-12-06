@@ -1,3 +1,8 @@
+const { MessageEmbed, Message, Client } = require("discord.js");
+const { readdirSync } = require("fs");
+let color = "#36393f";
+const config = require('../../configs/config.json');
+
 module.exports = {
     name: "test02",
     description: "test02",
@@ -75,7 +80,7 @@ module.exports = {
 
         const msg = await message.reply({
             content: help,
-            components: hb
+            components: hb,
         })
     }
 }
