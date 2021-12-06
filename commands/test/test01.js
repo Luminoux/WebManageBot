@@ -64,11 +64,11 @@ module.exports = {
 
 		if(button.customId !== Object.keys(positions)[randomized]) {
 			gameEnded = true;
-			return button.reply({ content: `${assets.emojis.success} | YOU WON!` });
+			return button.reply({ content: `${assets.others.approve} | YOU WON!` });
 		}
 		else {
 			gameEnded = true;
-			return button.reply({ content: `${assets.emojis.wrong} | YOU LOSE!` });
+			return button.reply({ content: `${assets.others.disapprove} | YOU LOSE!` });
 		}
 	},
 };

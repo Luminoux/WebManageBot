@@ -22,6 +22,8 @@
 
     "others": {
        "green_circle": "https://github.githubassets.com/images/icons/emoji/unicode/1f7e2.png?v8",
-       "red_circle": "https://github.githubassets.com/images/icons/emoji/unicode/1f534.png?v8"
+       "red_circle": "https://github.githubassets.com/images/icons/emoji/unicode/1f534.png?v8",
+       "approve": "<:approve:731571344474636378>",
+       "disapprove": "<:disapprove:731571399583596586>"
     }
 }
