@@ -65,7 +65,6 @@ module.exports = {
 
         const help = 
           readdirSync("./commands/").forEach((dir) => {
-            if (ignored.includes(dir.toLowerCase())) return;
             const name = `${emo[dir.toLowerCase()]} ${dir.toUpperCase()} - ${catinfo[dir.toLowerCase()]}`;
             let cats = new Object();
     
