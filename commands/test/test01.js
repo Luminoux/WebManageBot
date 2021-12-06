@@ -1,50 +1,62 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const assets = require('../../configs/assets.json');
 
 module.exports = {
 	name: 'test01',
-	description: "a test command",
+	description: "test01",
 	run: async (client, message, args) => {
-        const gameEnded = false;
-		
-		const help = [
+		const positions = {
+			left: 'left content',
+			middle: 'middle content',
+			right: 'right content',
+		};
+		let randomized = Math.floor(Math.random() * Object.keys(positions).length);
+		let gameEnded = false;
+		let randomPos = positions[Object.keys(positions)[randomized]];
+
+		const componentsArray = [
 			{
 				type: 1,
 				components: [
 					{
 						type: 2,
-						style: 'PRIMARY',
-						custom_id: '1',
-						label: '1',
+						style: 'SECONDARY',
+						custom_id: 'left',
+						label: 'Left',
 					},
 					{
 						type: 2,
 						style: 'PRIMARY',
-						custom_id: '2',
-						label: '2',
+						custom_id: 'middle',
+						label: 'Middle',
 					},
 					{
 						type: 2,
-						style: 'PRIMARY',
-						custom_id: '3',
-						label: '3',
+						style: 'SECONDARY',
+						custom_id: 'right',
+						label: 'Right',
 					},
 				],
 			},
 		];
 
 		const msg = await message.channel.send({
-			content: 'test',
-			components: help,
+			content: randomPos,
+			components: componentsArray,
 		});
 		function update() {
 			randomized = Math.floor(Math.random() * Object.keys(positions).length);
 			randomPos = positions[Object.keys(positions)[randomized]];
 
 			msg.edit({
-				content: 'test01',
-				components: help,
+				content: randomPos,
+				components: componentsArray,
 			});
 		}
+		setInterval(() => {
+			if(gameEnded == false) return update();
+		}, 1000);
+
 		const filter = button => {
 			return button.user.id === message.author.id;
 		};
@@ -52,11 +64,11 @@ module.exports = {
 
 		if(button.customId !== Object.keys(positions)[randomized]) {
 			gameEnded = true;
-			return button.reply({ content: 'epicc win' });
+			return button.reply({ content: `${assets.colors.success} | YOU WON!` });
 		}
 		else {
 			gameEnded = true;
-			return button.reply({ content: 'epicc fail' });
+			return button.reply({ content: `${assets.colors.fail} | YOU LOSE` });
 		}
 	},
 };

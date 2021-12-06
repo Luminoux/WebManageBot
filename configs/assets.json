@@ -1,16 +1,16 @@
 {
     "emojis": {
-       "wrong": "<:wrong:878649139443924992>",
-       "success": "<:greenTick:854228019312066571>",
-       "redcircle": "<a:redcircle:878652051763114025>",
-       "yellowcircle": "<a:yellowcircle:878652640865710100>",
-       "greencircle": "<a:greencircle:878652763410665482>"
+       "no": "<:no:878649139443924992>",
+       "yes": "<:yes:854228019312066571>",
+       "red": "<a:redcircle:878652051763114025>",
+       "yellow": "<a:yellowcircle:878652640865710100>",
+       "green": "<a:greencircle:878652763410665482>"
     },
 
     "colors": {
-       "failColor": "#fc2323",
-       "successColor": "#0ee331",
-       "defaultColor": "#A6FE00"
+       "fail": "#fc2323",
+       "success": "#0ee331",
+       "default": "#A6FE00"
     },
 
     "stats": {
