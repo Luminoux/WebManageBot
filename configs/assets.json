@@ -1,23 +1,23 @@
 {
     "emojis": {
-       "fail": "<:fail:878649139443924992:>",
-       "success": "<:success:854228019312066571:>",
-       "red": "<:red:878652051763114025:>",
-       "yellow": "<:yellow:878652640865710100:>",
-       "green": "<:green:878652763410665482:>"
+       "wrong": "<:wrong:878649139443924992>",
+       "success": "<:greenTick:854228019312066571>",
+       "redcircle": "<a:redcircle:878652051763114025>",
+       "yellowcircle": "<a:yellowcircle:878652640865710100>",
+       "greencircle": "<a:greencircle:878652763410665482>"
     },
 
     "colors": {
-       "no": "#fc2323",
-       "yes": "#0ee331",
-       "default": "#A6FE00"
+       "failColor": "#fc2323",
+       "successColor": "#0ee331",
+       "defaultColor": "#A6FE00"
     },
 
     "stats": {
-       "online": "<:online:897885335567081552:>",
-       "idle": "<:idle:897885607664181278:>",
-       "dnd": "<:dnd:897885647552008242::>",
-       "offline": "<:offline:897885335567081552:>"
+       "online": "<a:online:897885335567081552>",
+       "idle": "<a:idle:897885607664181278>",
+       "dnd": "<a:dnd:897885647552008242>",
+       "offline": "<a:offline:897885335567081552>"
     },
 
     "others": {

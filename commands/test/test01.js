@@ -68,7 +68,7 @@ module.exports = {
 		}
 		else {
 			gameEnded = true;
-			return button.reply({ content: `${assets.emojis.fail} | YOU LOSE` });
+			return button.reply({ content: `${assets.emojis.wrong} | YOU LOSE!` });
 		}
 	},
 };
