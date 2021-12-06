@@ -77,7 +77,7 @@ module.exports = {
             categories.push(cats);
           });
 
-        const embed = new MessageEmbed()
+        const mainHelp = new MessageEmbed()
           .setTitle(`\`\`Help Menu\`\``)
           .setDescription(`\`\`My Prefix is : ${config.prefix} \`\`\n \`\`\` Presented By Luminoux Studios \`\`\` \n To check out a category, use command ${config.prefix}help [category] \n\n [Invite Me Now](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands) \n [My Support Server](https://discord.gg/m5xUeZj7Xb) \n [My Other Server](https://discord.gg/aFCQSyzNU8)`)
           .addFields(categories)
@@ -94,11 +94,22 @@ module.exports = {
             })
           )
           .setColor(color);
-  
+        
         const msg = await message.channel.send({
             content: help,
-            embeds: [embed],
+            embeds: [mainHelp],
             components: hb,
         })
+        const test = new MessageEmbed()
+          .setTitle('**THE TEST SUCCEEDED**')
+          .setDescription('**HELL YES I KNOW YOU ARE HAPPY**')
+
+        if(button.customId == fun) {
+            msg.edit({
+                content: test,
+                embeds: [test],
+                components: hb,
+            })
+        }
     }
 }
