@@ -8,7 +8,10 @@ module.exports = {
 	  return message.reply(
      `This command can only be used by VenomousSteam81#7772!`
   	);
+	  message.reply('STOPPING...')
+	  	.setTimeout(function(){
 	  console.log('STOPPED ALL PROCESSES'),
 	  process.exit();
+		  }, 2000);
 	},
 };
