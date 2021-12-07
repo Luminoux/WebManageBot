@@ -8,7 +8,43 @@ module.exports = {
   aliases: "h",
   description: "Shows all available commands",
   run: async (client, message, args) => {
-    if (!args[0]) {
+      const hb = [
+        {
+            type: 1,
+            components: [
+                {
+                    type: 2,
+                    style: 'PRIMARY',
+                    custom_id: 'fun',
+                    label: 'FUN',
+                },
+                {
+                    type: 2,
+                    style: 'PRIMARY',
+                    custom_id: 'games',
+                    label: 'GAMES',
+                },
+                {
+                    type: 2,
+                    style: 'PRIMARY',
+                    custom_id: 'info',
+                    label: 'INFO'
+                },
+                {
+                    type: 2,
+                    style: 'PRIMARY',
+                    custom_id: 'mod',
+                    label: 'MOD',
+                },
+                {
+                    type: 2,
+                    style: 'PRIMARY',
+                    custom_id: 'test',
+                    label: 'TEST',
+                },
+            ]
+        }
+    ];
       let categories = [];
 
       let ignored = ["util", "database", "db"];
@@ -62,18 +98,17 @@ module.exports = {
         .setColor(color);
 
       return message.channel.send({ embeds: [embed] });
-    } else {
+
       let cots = [];
       let catts = [];
-
+    const helpFun =
       readdirSync("./commands/").forEach((dir) => {
-        if (dir.toLowerCase() !== args[0].toLowerCase()) return;
-        const commands = readdirSync(`./commands/${dir}/`).filter((file) =>
+        const commands = readdirSync(`./commands/fun/`).filter((file) =>
           file.endsWith(".js")
         );
 
         const cmds = commands.map((command) => {
-          let file = require(`../../commands/${dir}/${command}`);
+          let file = require(`../../commands/fun/${command}`);
 
           if (!file.name) return "No command name.";
 
@@ -103,39 +138,161 @@ module.exports = {
 
         cots.push(dir.toLowerCase());
       });
-			
-      const command =
+      const helpGames =
+      readdirSync("./commands/").forEach((dir) => {
+        const commands = readdirSync(`./commands/games/`).filter((file) =>
+          file.endsWith(".js")
+        );
+
+        const cmds = commands.map((command) => {
+          let file = require(`../../commands/games/${command}`);
+
+          if (!file.name) return "No command name.";
+
+          let name = file.name.replace(".js", "");
+
+          let des = `${client.commands.get(name).description}`;
+          let emo = `✅`;
+
+          let obj = {
+            cname: `${emo} \`${name}\``,
+            des,
+          };
+
+          return obj;
+        });
+
+        let dota = new Object();
+
+        cmds.map((co) => {
+          dota = {
+            name: `${cmds.length === 0 ? "In progress" : co.cname}`,
+            value: co.des ? co.des : "No Description",
+            inline: true,
+          };
+          catts.push(dota);
+        });
+
+        cots.push(dir.toLowerCase());
+      });
+      const helpInfo =
+      readdirSync("./commands/").forEach((dir) => {
+        const commands = readdirSync(`./commands/info/`).filter((file) =>
+          file.endsWith(".js")
+        );
+
+        const cmds = commands.map((command) => {
+          let file = require(`../../commands/info/${command}`);
+
+          if (!file.name) return "No command name.";
+
+          let name = file.name.replace(".js", "");
+
+          let des = `${client.commands.get(name).description}`;
+          let emo = `✅`;
+
+          let obj = {
+            cname: `${emo} \`${name}\``,
+            des,
+          };
+
+          return obj;
+        });
+
+        let dota = new Object();
+
+        cmds.map((co) => {
+          dota = {
+            name: `${cmds.length === 0 ? "In progress" : co.cname}`,
+            value: co.des ? co.des : "No Description",
+            inline: true,
+          };
+          catts.push(dota);
+        });
+
+        cots.push(dir.toLowerCase());
+      });
+      const helpMod =
+      readdirSync("./commands/").forEach((dir) => {
+        const commands = readdirSync(`./commands/mod/`).filter((file) =>
+          file.endsWith(".js")
+        );
+
+        const cmds = commands.map((command) => {
+          let file = require(`../../commands/mod/${command}`);
+
+          if (!file.name) return "No command name.";
+
+          let name = file.name.replace(".js", "");
+
+          let des = `${client.commands.get(name).description}`;
+          let emo = `✅`;
+
+          let obj = {
+            cname: `${emo} \`${name}\``,
+            des,
+          };
+
+          return obj;
+        });
+
+        let dota = new Object();
+
+        cmds.map((co) => {
+          dota = {
+            name: `${cmds.length === 0 ? "In progress" : co.cname}`,
+            value: co.des ? co.des : "No Description",
+            inline: true,
+          };
+          catts.push(dota);
+        });
+
+        cots.push(dir.toLowerCase());
+      });
+      const helpTest =
+      readdirSync("./commands/").forEach((dir) => {
+        const commands = readdirSync(`./commands/test/`).filter((file) =>
+          file.endsWith(".js")
+        );
+
+        const cmds = commands.map((command) => {
+          let file = require(`../../commands/test/${command}`);
+
+          if (!file.name) return "No command name.";
+
+          let name = file.name.replace(".js", "");
+
+          let des = `${client.commands.get(name).description}`;
+          let emo = `✅`;
+
+          let obj = {
+            cname: `${emo} \`${name}\``,
+            des,
+          };
+
+          return obj;
+        });
+
+        let dota = new Object();
+
+        cmds.map((co) => {
+          dota = {
+            name: `${cmds.length === 0 ? "In progress" : co.cname}`,
+            value: co.des ? co.des : "No Description",
+            inline: true,
+          };
+          catts.push(dota);
+        });
+
+        cots.push(dir.toLowerCase());
+      });
+      const help =
         client.commands.get(args[0].toLowerCase()) ||
         client.commands.find(
           (c) => c.aliases && c.aliases.includes(args[0].toLowerCase())
         );
 
-      if (cots.includes(args[0].toLowerCase())) {
-        const combed = new MessageEmbed()
-          .setTitle(
-            `__${
-              args[0].charAt(0).toUpperCase() + args[0].slice(1)
-            } Commands!__`
-          )
-          .setDescription(
-            `Use \`${config.prefix}help\` followed by a command name to get more information on a command.\nFor example: \`${config.prefix}help ping\`\n\n`
-          )
-          .addFields(catts)
-          .setColor(color);
-
-        return message.channel.send({ embeds: [combed] });
-      }
-
-      if (!command) {
-        const embed = new MessageEmbed()
-          .setTitle(
-            `Invalid command! Use \`${config.prefix}help\` for all of my commands!`
-          )
-          .setColor("RED");
-        return message.channel.send({ embeds: [embed] });
-      }
-
-      const embed = new MessageEmbed()
+      const helpMain = new MessageEmbed()
         .setTitle("Command Details:")
         .addField(
           "Command:",
@@ -167,7 +324,24 @@ module.exports = {
         )
         .setTimestamp()
         .setColor(color);
-      return message.channel.send({ embeds: [embed] });
-    }
+                
+        const msg = await message.channel.send({
+          content: help,
+          embeds: [help],
+          components: hb,
+      })
+
+      const filter = button => {
+        return button.user.id === message.author.id;
+      };
+      const button = await msg.awaitMessageComponent({ filter: filter, componentType: 'BUTTON', max: 1 });
+
+    if(button.customId == hb.fun) {
+      msg.edit({
+        content: helpFun,
+        embeds: [helpFun],
+        components: hb,
+      })
+    };
   },
 };
