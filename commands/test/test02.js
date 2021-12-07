@@ -8,7 +8,8 @@ module.exports = {
     description: "test02",
     run: async (client, message, args) => {
         let categories = [];
-        
+        let ignored = ["util", "database", "db"];
+
         const emo = {
           info: "❓",
           fun: "🎮",
@@ -65,6 +66,7 @@ module.exports = {
 
         const help = 
           readdirSync("./commands/").forEach((dir) => {
+            if (ignored.includes(dir.toLowerCase())) return;
             const name = `${emo[dir.toLowerCase()]} ${dir.toUpperCase()} - ${catinfo[dir.toLowerCase()]}`;
             let cats = new Object();
     
@@ -108,7 +110,7 @@ module.exports = {
     
         const test = new MessageEmbed()
           .setTitle('**THE TEST SUCCEEDED**')
-          .setDescription('**HELL YES I KNOW YOU ARE HAPPY**')
+          .setDescription('**HELL YES I KNOW YOU ARE HAPPY**');
 
         if(button.customId == fun) {
             msg.edit({
