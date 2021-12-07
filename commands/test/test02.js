@@ -124,10 +124,44 @@ module.exports = {
           return button.user.id === message.author.id;
         };
         const button = await msg.awaitMessageComponent({ filter: filter, componentType: 'BUTTON', max: 1 });
-    
-        const test = new MessageEmbed()
-          .setTitle('**THE TEST SUCCEEDED**')
-          .setDescription('**HELL YES I KNOW YOU ARE HAPPY**');
+        
+        const helpFun =
+        readdirSync("./commands/").forEach((dir) => {
+          const commands = readdirSync(`./commands/fun/`).filter((file) =>
+            file.endsWith(".js")
+          );
+  
+          const cmds = commands.map((command) => {
+            let file = require(`../../commands/fun/${command}`);
+  
+            if (!file.name) return "No command name.";
+  
+            let name = file.name.replace(".js", "");
+  
+            let des = `${client.commands.get(name).description}`;
+            let emo = `✅`;
+  
+            let obj = {
+              cname: `${emo} \`${name}\``,
+              des,
+            };
+  
+            return obj;
+          });
+  
+          let dota = new Object();
+  
+          cmds.map((co) => {
+            dota = {
+              name: `${cmds.length === 0 ? "In progress" : co.cname}`,
+              value: co.des ? co.des : "No Description",
+              inline: true,
+            };
+            catts.push(dota);
+          });
+  
+          cots.push(dir.toLowerCase());
+        });
 
         if(button.customId == hb.fun) {
             msg.edit({

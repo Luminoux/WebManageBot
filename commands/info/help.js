@@ -101,14 +101,15 @@ module.exports = {
 
       let cots = [];
       let catts = [];
-    const helpFun =
+    const helpFun = 
       readdirSync("./commands/").forEach((dir) => {
-        const commands = readdirSync(`./commands/fun/`).filter((file) =>
+        if (dir.toLowerCase() !== args[0].toLowerCase()) return;
+        const commands = readdirSync(`./commands/${dir}/`).filter((file) =>
           file.endsWith(".js")
         );
 
         const cmds = commands.map((command) => {
-          let file = require(`../../commands/fun/${command}`);
+          let file = require(`../../commands/${dir}/${command}`);
 
           if (!file.name) return "No command name.";
 
@@ -138,161 +139,26 @@ module.exports = {
 
         cots.push(dir.toLowerCase());
       });
-      const helpGames =
-      readdirSync("./commands/").forEach((dir) => {
-        const commands = readdirSync(`./commands/games/`).filter((file) =>
-          file.endsWith(".js")
-        );
-
-        const cmds = commands.map((command) => {
-          let file = require(`../../commands/games/${command}`);
-
-          if (!file.name) return "No command name.";
-
-          let name = file.name.replace(".js", "");
-
-          let des = `${client.commands.get(name).description}`;
-          let emo = `✅`;
-
-          let obj = {
-            cname: `${emo} \`${name}\``,
-            des,
-          };
-
-          return obj;
-        });
-
-        let dota = new Object();
-
-        cmds.map((co) => {
-          dota = {
-            name: `${cmds.length === 0 ? "In progress" : co.cname}`,
-            value: co.des ? co.des : "No Description",
-            inline: true,
-          };
-          catts.push(dota);
-        });
-
-        cots.push(dir.toLowerCase());
-      });
-      const helpInfo =
-      readdirSync("./commands/").forEach((dir) => {
-        const commands = readdirSync(`./commands/info/`).filter((file) =>
-          file.endsWith(".js")
-        );
-
-        const cmds = commands.map((command) => {
-          let file = require(`../../commands/info/${command}`);
-
-          if (!file.name) return "No command name.";
-
-          let name = file.name.replace(".js", "");
-
-          let des = `${client.commands.get(name).description}`;
-          let emo = `✅`;
-
-          let obj = {
-            cname: `${emo} \`${name}\``,
-            des,
-          };
-
-          return obj;
-        });
-
-        let dota = new Object();
-
-        cmds.map((co) => {
-          dota = {
-            name: `${cmds.length === 0 ? "In progress" : co.cname}`,
-            value: co.des ? co.des : "No Description",
-            inline: true,
-          };
-          catts.push(dota);
-        });
-
-        cots.push(dir.toLowerCase());
-      });
-      const helpMod =
-      readdirSync("./commands/").forEach((dir) => {
-        const commands = readdirSync(`./commands/mod/`).filter((file) =>
-          file.endsWith(".js")
-        );
-
-        const cmds = commands.map((command) => {
-          let file = require(`../../commands/mod/${command}`);
-
-          if (!file.name) return "No command name.";
-
-          let name = file.name.replace(".js", "");
-
-          let des = `${client.commands.get(name).description}`;
-          let emo = `✅`;
-
-          let obj = {
-            cname: `${emo} \`${name}\``,
-            des,
-          };
-
-          return obj;
-        });
-
-        let dota = new Object();
-
-        cmds.map((co) => {
-          dota = {
-            name: `${cmds.length === 0 ? "In progress" : co.cname}`,
-            value: co.des ? co.des : "No Description",
-            inline: true,
-          };
-          catts.push(dota);
-        });
-
-        cots.push(dir.toLowerCase());
-      });
-      const helpTest =
-      readdirSync("./commands/").forEach((dir) => {
-        const commands = readdirSync(`./commands/test/`).filter((file) =>
-          file.endsWith(".js")
-        );
-
-        const cmds = commands.map((command) => {
-          let file = require(`../../commands/test/${command}`);
-
-          if (!file.name) return "No command name.";
-
-          let name = file.name.replace(".js", "");
-
-          let des = `${client.commands.get(name).description}`;
-          let emo = `✅`;
-
-          let obj = {
-            cname: `${emo} \`${name}\``,
-            des,
-          };
-
-          return obj;
-        });
-
-        let dota = new Object();
-
-        cmds.map((co) => {
-          dota = {
-            name: `${cmds.length === 0 ? "In progress" : co.cname}`,
-            value: co.des ? co.des : "No Description",
-            inline: true,
-          };
-          catts.push(dota);
-        });
-
-        cots.push(dir.toLowerCase());
-      });
-      const help =
+			
+      const command =
         client.commands.get(args[0].toLowerCase()) ||
         client.commands.find(
           (c) => c.aliases && c.aliases.includes(args[0].toLowerCase())
         );
 
-      const helpMain = new MessageEmbed()
+        const combed = new MessageEmbed()
+          .setTitle(
+            `__${
+              args[0].charAt(0).toUpperCase() + args[0].slice(1)
+            } Commands!__`
+          )
+          .setDescription(
+            `Use \`${config.prefix}help\` followed by a command name to get more information on a command.\nFor example: \`${config.prefix}help ping\`\n\n`
+          )
+          .addFields(catts)
+          .setColor(color);
+
+      const embed = new MessageEmbed()
         .setTitle("Command Details:")
         .addField(
           "Command:",
@@ -335,13 +201,17 @@ module.exports = {
         return button.user.id === message.author.id;
       };
       const button = await msg.awaitMessageComponent({ filter: filter, componentType: 'BUTTON', max: 1 });
+  
+      const test = new MessageEmbed()
+        .setTitle('**THE TEST SUCCEEDED**')
+        .setDescription('**HELL YES I KNOW YOU ARE HAPPY**');
 
     if(button.customId == hb.fun) {
       msg.edit({
-        content: helpFun,
-        embeds: [helpFun],
+        content: test,
+        embeds: [test],
         components: hb,
       })
-    };
-  },
-};
+      }
+    }
+  };
