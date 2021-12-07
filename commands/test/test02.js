@@ -8,7 +8,7 @@ module.exports = {
     description: "test02",
     run: async (client, message, args) => {
         let categories = [];
-
+        
         const emo = {
           info: "❓",
           fun: "🎮",
@@ -100,6 +100,12 @@ module.exports = {
             embeds: [mainHelp],
             components: hb,
         })
+
+        const filter = button => {
+          return button.user.id === message.author.id;
+        };
+        const button = await msg.awaitMessageComponent({ filter: filter, componentType: 'BUTTON', max: 1 });
+    
         const test = new MessageEmbed()
           .setTitle('**THE TEST SUCCEEDED**')
           .setDescription('**HELL YES I KNOW YOU ARE HAPPY**')
