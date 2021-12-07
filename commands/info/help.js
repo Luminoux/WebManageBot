@@ -97,7 +97,7 @@ module.exports = {
         )
         .setColor(color);
 
-      return message.channel.send({ embeds: [embed] });
+//    return message.channel.send({ embeds: [embed] });
 
       let cots = [];
       let catts = [];
