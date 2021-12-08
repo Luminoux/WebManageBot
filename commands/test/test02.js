@@ -80,7 +80,7 @@ module.exports = {
 
         categories.push(cats);
       });
-
+      
       let cots = [];
       let catts = [];
 
@@ -119,7 +119,7 @@ module.exports = {
         });
 
         cots.push(dir.toLowerCase());
-      });
+      })
 
         const help = new MessageEmbed()
           .setTitle(`\`\`Help Menu\`\``)
