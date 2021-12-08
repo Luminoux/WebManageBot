@@ -8,43 +8,7 @@ module.exports = {
   aliases: "h",
   description: "Shows all available commands",
   run: async (client, message, args) => {
-      const hb = [
-        {
-            type: 1,
-            components: [
-                {
-                    type: 2,
-                    style: 'PRIMARY',
-                    custom_id: 'fun',
-                    label: 'FUN',
-                },
-                {
-                    type: 2,
-                    style: 'PRIMARY',
-                    custom_id: 'games',
-                    label: 'GAMES',
-                },
-                {
-                    type: 2,
-                    style: 'PRIMARY',
-                    custom_id: 'info',
-                    label: 'INFO'
-                },
-                {
-                    type: 2,
-                    style: 'PRIMARY',
-                    custom_id: 'mod',
-                    label: 'MOD',
-                },
-                {
-                    type: 2,
-                    style: 'PRIMARY',
-                    custom_id: 'test',
-                    label: 'TEST',
-                },
-            ]
-        }
-    ];
+    if (!args[0]) {
       let categories = [];
 
       let ignored = ["util", "database", "db"];
@@ -53,16 +17,18 @@ module.exports = {
         info: "❓",
 				fun: "🎮",
 				mod: "👁",
+        server: "📝",
 				games: "🎲",
 				test: "🖼️"
       };
 
       const catinfo = {
-        info: "info land",
-				fun: "fun land",
-				mod: "punish those baddies from existence",
-				games: "gaymerland",
-				test: "testing"
+        info: "Info Land",
+				fun: "Fun Land",
+				mod: "Punish those baddies from existence",
+        server: "Manage this server",
+				games: "Gaymerland",
+				test: "Testing or \"beta\" commands"
       };
 
       readdirSync("./commands/").forEach((dir) => {
@@ -97,11 +63,11 @@ module.exports = {
         )
         .setColor(color);
 
-//    return message.channel.send({ embeds: [embed] });
-
+      return message.channel.send({ embeds: [embed] });
+    } else {
       let cots = [];
       let catts = [];
-    const helpFun = 
+
       readdirSync("./commands/").forEach((dir) => {
         if (dir.toLowerCase() !== args[0].toLowerCase()) return;
         const commands = readdirSync(`./commands/${dir}/`).filter((file) =>
@@ -116,7 +82,14 @@ module.exports = {
           let name = file.name.replace(".js", "");
 
           let des = `${client.commands.get(name).description}`;
-          let emo = `✅`;
+          const emo = {
+            info: "❓",
+            fun: "🎮",
+            mod: "👁",
+            server: "📝",
+            games: "🎲",
+            test: "🖼️"
+          };
 
           let obj = {
             cname: `${emo} \`${name}\``,
@@ -139,13 +112,14 @@ module.exports = {
 
         cots.push(dir.toLowerCase());
       });
-			
+
       const command =
         client.commands.get(args[0].toLowerCase()) ||
         client.commands.find(
           (c) => c.aliases && c.aliases.includes(args[0].toLowerCase())
         );
 
+      if (cots.includes(args[0].toLowerCase())) {
         const combed = new MessageEmbed()
           .setTitle(
             `__${
@@ -157,6 +131,18 @@ module.exports = {
           )
           .addFields(catts)
           .setColor(color);
+
+        return message.channel.send({ embeds: [combed] });
+      }
+
+      if (!command) {
+        const embed = new MessageEmbed()
+          .setTitle(
+            `Invalid command! Use \`${config.prefix}help\` for all of my commands!`
+          )
+          .setColor("RED");
+        return message.channel.send({ embeds: [embed] });
+      }
 
       const embed = new MessageEmbed()
         .setTitle("Command Details:")
@@ -190,28 +176,7 @@ module.exports = {
         )
         .setTimestamp()
         .setColor(color);
-                
-        const msg = await message.channel.send({
-          content: help,
-          embeds: [help],
-          components: hb,
-      })
-
-      const filter = button => {
-        return button.user.id === message.author.id;
-      };
-      const button = await msg.awaitMessageComponent({ filter: filter, componentType: 'BUTTON', max: 1 });
-  
-      const test = new MessageEmbed()
-        .setTitle('**THE TEST SUCCEEDED**')
-        .setDescription('**HELL YES I KNOW YOU ARE HAPPY**');
-
-    if(button.customId == hb.fun) {
-      msg.edit({
-        content: test,
-        embeds: [test],
-        components: hb,
-      })
-      }
+      return message.channel.send({ embeds: [embed] });
     }
-  };
+  },
+};
