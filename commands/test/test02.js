@@ -7,25 +7,28 @@ module.exports = {
     name: "test02",
     description: "test02",
     run: async (client, message, args) => {
-        let categories = [];
-        let ignored = ["util", "database", "db"];
+      let categories = [];
 
-        const emo = {
-          info: "❓",
-          fun: "🎮",
-          mod: "👁",
-          games: "🎲",
-          test: "🖼️"
-        };
-  
-        const catinfo = {
-          info: "info land",
-          fun: "fun land",
-          mod: "punish those baddies from existence",
-          games: "gaymerland",
-          test: "testing"
-        };
-        
+      let ignored = ["util", "database", "db"];
+
+      const emo = {
+        info: "❓",
+				fun: "🎮",
+				mod: "👁",
+        server: "📝",
+				games: "🎲",
+				test: "🖼️"
+      };
+
+      const catinfo = {
+        info: "Info Land",
+				fun: "Fun Land",
+				mod: "Punish those baddies from existence",
+        server: "Manage this server",
+				games: "Gaymerland",
+				test: "Testing or \"beta\" commands"
+      };
+
         const hb = [
             {
                 type: 1,
@@ -64,22 +67,76 @@ module.exports = {
             }
         ];
 
-        const help = 
-          readdirSync("./commands/").forEach((dir) => {
-            if (ignored.includes(dir.toLowerCase())) return;
-            const name = `${emo[dir.toLowerCase()]} ${dir.toUpperCase()} - ${catinfo[dir.toLowerCase()]}`;
-            let cats = new Object();
-    
-            cats = {
-              name: name,
-              value: `\`${config.prefix}help ${dir.toLowerCase()}\``,
-              inline: false,
-            };
-    
-            categories.push(cats);
-          });
+      readdirSync("./commands/").forEach((dir) => {
+        if (ignored.includes(dir.toLowerCase())) return;
+        const name = `${emo[dir.toLowerCase()]} ${dir.toUpperCase()} - ${catinfo[dir.toLowerCase()]}`;
+        let cats = new Object();
 
-        const helpEmbed = new MessageEmbed()
+        cats = {
+          name: name,
+          value: `\`${config.prefix}help ${dir.toLowerCase()}\``,
+          inline: false,
+        };
+
+        categories.push(cats);
+      });
+
+      readdirSync("./commands/").forEach((dir) => {
+        const commands = readdirSync(`./commands/${dir}/`).filter((file) =>
+          file.endsWith(".js")
+        );
+
+        const cmds = commands.map((command) => {
+          let file = require(`../../commands/${dir}/${command}`);
+
+          if (!file.name) return "No command name.";
+
+          let name = file.name.replace(".js", "");
+
+          let des = `${client.commands.get(name).description}`;
+          let emo = `✅`;
+
+          let obj = {
+            cname: `${emo} \`${name}\``,
+            des,
+          };
+
+          return obj;
+        });
+
+        let dota = new Object();
+
+        cmds.map((co) => {
+          dota = {
+            name: `${cmds.length === 0 ? "In progress" : co.cname}`,
+            value: co.des ? co.des : "No Description",
+            inline: true,
+          };
+          catts.push(dota);
+        });
+
+        cots.push(dir.toLowerCase());
+      });
+
+      const helpCat = new MessageEmbed()
+        .setTitle(dir.toLowerCase())
+        .setDescription(`\`\`My Prefix is : ${config.prefix} \`\` \n To check out a category, use command ${config.prefix}help [category] \n\n [Invite Me Now](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands) \n [My Support Server](https://discord.gg/m5xUeZj7Xb) \n [My Other Server](https://discord.gg/aFCQSyzNU8)`)
+        .addFields(cmds.toLowerCase)
+        .setFooter(
+          `Requested by ${message.author.tag}`,
+          message.author.displayAvatarURL({
+            dynamic: true,
+          })
+        )
+        .setTimestamp()
+        .setThumbnail(
+          client.user.displayAvatarURL({
+            dynamic: true,
+          })
+        )
+        .setColor(color);
+
+        const help = new MessageEmbed()
           .setTitle(`\`\`Help Menu\`\``)
           .setDescription(`\`\`My Prefix is : ${config.prefix} \`\`\n \`\`\` Presented By Luminoux Studios \`\`\` \n To check out a category, use command ${config.prefix}help [category] \n\n [Invite Me Now](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands) \n [My Support Server](https://discord.gg/m5xUeZj7Xb) \n [My Other Server](https://discord.gg/aFCQSyzNU8)`)
           .addFields(categories)
@@ -98,60 +155,50 @@ module.exports = {
           .setColor(color);
         
         const msg = await message.channel.send({
-            content: help,
-            embeds: [help],
+            content: helpEmbed,
+            embeds: [helpEmbed],
             components: hb,
         })
 
         const filter = button => {
           return button.user.id === message.author.id;
         };
-        const button = await msg.awaitMessageComponent({ filter: filter, componentType: 'BUTTON', max: 1 });
-        
-        const helpFun =
-        readdirSync("./commands/").forEach((dir) => {
-          const commands = readdirSync(`./commands/fun/`).filter((file) =>
-            file.endsWith(".js")
-          );
-  
-          const cmds = commands.map((command) => {
-            let file = require(`../../commands/fun/${command}`);
-  
-            if (!file.name) return "No command name.";
-  
-            let name = file.name.replace(".js", "");
-  
-            let des = `${client.commands.get(name).description}`;
-            let emo = `✅`;
-  
-            let obj = {
-              cname: `${emo} \`${name}\``,
-              des,
-            };
-  
-            return obj;
-          });
-  
-          let dota = new Object();
-  
-          cmds.map((co) => {
-            dota = {
-              name: `${cmds.length === 0 ? "In progress" : co.cname}`,
-              value: co.des ? co.des : "No Description",
-              inline: true,
-            };
-            catts.push(dota);
-          });
-  
-          cots.push(dir.toLowerCase());
-        });
+        const button = await msg.awaitMessageComponent({ filter: filter, componentType: 'BUTTON', max: 15 });
 
         if(button.customId == hb.fun) {
-            msg.edit({
-                content: test,
-                embeds: [test],
-                components: hb,
-            })
-        }
+          msg.edit({
+              content: cmds.toLowerCase,
+              embeds: [helpCat],
+              components: hb,
+          })
+        };
+        if(button.customId == hb.games) {
+          msg.edit({
+            content: cmds.toLowerCase,
+            embeds: [helpCat],
+            components: hb,
+          })
+        };
+        if(button.customId == hb.info) {
+          msg.edit({
+            content: cmds.toLowerCase,
+            embeds: [helpCat],
+            components: hb,
+          })
+        };
+        if(button.customId == hb.mod) {
+          msg.edit({
+            content: cmds.toLowerCase,
+            embeds: [helpCat],
+            components: hb,
+          })
+        };
+        if(button.customId == hb.test) {
+          msg.edit({
+            content: cmds.toLowerCase,
+            embeds: [helpCat],
+            components: hb,
+          })
+        };
     }
 }
