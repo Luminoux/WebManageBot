@@ -80,6 +80,9 @@ module.exports = {
 
         categories.push(cats);
       });
+      
+      let cots = [];
+      let catts = [];
 
       readdirSync("./commands/").forEach((dir) => {
         const commands = readdirSync(`./commands/${dir}/`).filter((file) =>
