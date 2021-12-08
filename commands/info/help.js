@@ -82,14 +82,7 @@ module.exports = {
           let name = file.name.replace(".js", "");
 
           let des = `${client.commands.get(name).description}`;
-          const emo = {
-            info: "❓",
-            fun: "🎮",
-            mod: "👁",
-            server: "📝",
-            games: "🎲",
-            test: "🖼️"
-          };
+          let emo = `✅`;
 
           let obj = {
             cname: `${emo} \`${name}\``,
